@@ -1,27 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div id="app" class="parent-app">
+    <section class="hero is-success">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Exercise Tracking
+          </h1>
+          <h2 class="subtitle">
+            Easily track your exercises with style
+            <!-- <b-button type="is-primary">Primary</b-button> -->
+          </h2>
+        </div>
+      </div>
+    </section>
+    <Dashboard />
+    <Tracker />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+// import HelloWorld from "./components/HelloWorld.vue";
+import Dashboard from "./components/Dashboard.vue";
+import Tracker from "./components/Tracker.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
-  }
+    Dashboard,
+    Tracker,
+  },
 };
 </script>
 
 <style>
-#app {
+.parent-app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
   margin-top: 60px;
 }
