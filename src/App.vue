@@ -8,7 +8,6 @@
           </h1>
           <h2 class="subtitle">
             Easily track your exercises with style
-            <!-- <b-button type="is-primary">Primary</b-button> -->
           </h2>
         </div>
       </div>
@@ -19,7 +18,6 @@
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld.vue";
 import Dashboard from "./components/Dashboard.vue";
 import Tracker from "./components/Tracker.vue";
 
