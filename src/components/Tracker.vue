@@ -1,10 +1,14 @@
 <template>
-  <div class="tracker">
+  <div class="exercise-form">
     <form>
       <div class="columns">
         <div class="column">
           <b-field label="Exercise">
-            <b-select placeholder="Select an exercise" expanded v-model="exercise.type">
+            <b-select
+              placeholder="Select an exercise"
+              expanded
+              v-model="item.type"
+            >
               <option value="Running">Running</option>
               <option value="Walking">Walking</option>
               <option value="Climbing">Climbing</option>
@@ -15,11 +19,15 @@
         <div class="level-right">
           <div class="column">
             <b-field label="Time">
-              <b-select placeholder="Time" v-model="exercise.time">
-                <option value="less-one-hour">Less than one hour</option>
-                <option value="less-two-hours">Less than two hours</option>
-                <option value="less-three-hours">Less than three hours</option>
-                <option value="more-three-hours">More than three hours</option>
+              <b-select placeholder="Time" v-model="item.time">
+                <option value="Less than one hour">Less than one hour</option>
+                <option value="Less than two hours">Less than two hours</option>
+                <option value="Less than three hours"
+                  >Less than three hours</option
+                >
+                <option value="More than three hours"
+                  >More than three hours</option
+                >
               </b-select>
             </b-field>
           </div>
@@ -27,7 +35,11 @@
       </div>
 
       <b-field label="Comment">
-        <b-input maxlength="1000" type="textarea" v-model="exercise.comment"></b-input>
+        <b-input
+          maxlength="1000"
+          type="textarea"
+          v-model="item.comment"
+        ></b-input>
       </b-field>
       <div class="level-right">
         <b-button type="is-info" v-on:click="saveExercise">Save</b-button>
@@ -37,34 +49,37 @@
 </template>
 
 <script>
-import eventbus from "../event-bus.js";
+import eventbus from "../event-bus";
 
 export default {
   name: "Tracker",
   data() {
     return {
-      exercise: {
+      item: {
         type: "",
         time: "",
         comment: "",
         id: 0,
-        date: ""
-      }
+        date: "",
+      },
     };
   },
   methods: {
     saveExercise() {
-      this.exercise.date = this.addDate();
-      eventbus.$emit("SEND_ARRAY", this.exercise);
-      this.exercise.id++;
-      this.emptyForm(this.exercise.id);
+      if (!this.item.type) {
+        return;
+      }
+      this.item.date = this.addDate();
+      eventbus.$emit("SEND_ITEM", this.item);
+      this.item.id++;
+      this.emptyForm(this.item.id);
     },
     emptyForm(id) {
-      this.exercise = {
+      this.item = {
         type: "",
         time: "",
         comment: "",
-        id: id
+        id: id,
       };
     },
     addDate() {
@@ -78,16 +93,15 @@ export default {
         (today.getDate() < 10 ? "0" : "") +
         today.getDate();
       return date;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-.tracker {
+.exercise-form {
   height: 25rem;
-  // background-color: #fcc9b9;
-  border-top: solid 1px black;
+  border-top: solid 1px gray;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   form {
